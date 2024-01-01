@@ -57,4 +57,9 @@ public class Electronics extends Product {
     public String saveToString() {
         return "Electronics, " + productID + ", " + productName + ", " + quantity + ", " + price + ", " + brand + ", " + warrantyPeriod;
     }
+
+    @Override
+    public String getProductCategory() {
+        return "Electronics";
+    }
 }

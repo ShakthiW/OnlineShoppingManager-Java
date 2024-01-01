@@ -1,28 +1,33 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 public class ShoppingCart {
     // List to store products in the shopping cart
-    private final List<Product> cartItems;
+    private final HashMap<Product, Integer> cartItems;
 
     // constructor
     public ShoppingCart() {
-        cartItems = new ArrayList<>();
+        cartItems = new HashMap<>();
     }
 
     // Adds a product to the shopping cart
-    public void addProduct(Product product) {
-        cartItems.add(product);
+    public void addProduct(Product product, int quantity) {
+        if (cartItems.containsKey(product)) {
+            cartItems.put(product, cartItems.get(product) + quantity);
+        } else {
+            cartItems.put(product, quantity);
+        }
         System.out.println("Product added to the shopping cart.");
     }
 
     // Removes a product from the shopping cart based on the provided product ID
     // Prints a success message if the product is found and removed, or a message if the product is not found
     public void removeProduct(String productId) {
-        Iterator<Product> iterator = cartItems.iterator();
+        Iterator<Product> iterator = cartItems.keySet().iterator();  // Iterate through the product keys
         while (iterator.hasNext()) {
             Product product = iterator.next();
             if (product.getProductID().equals(productId)) {
@@ -37,8 +42,9 @@ public class ShoppingCart {
     // Calculates and returns the total cost of all products in the shopping cart
     public double getTotalPrice() {
         double totalCost = 0.0;
-        for (Product product : cartItems) {
-            totalCost += product.getPrice();
+        for (Product product : cartItems.keySet()) {
+            int quantity = cartItems.get(product);
+            totalCost += product.getPrice() * quantity;  // Calculate total cost based on price and quantity
         }
         return totalCost;
     }
@@ -46,8 +52,9 @@ public class ShoppingCart {
     // Print details of all products in the shopping cart
     public void printCartItems() {
         System.out.println("Shopping Cart Items:");
-        for (Product product : cartItems) {
-            System.out.println(product.toString());
+        for (Product product : cartItems.keySet()) {  // Iterate through the product keys
+            int quantity = cartItems.get(product);
+            System.out.println(product.toString() + " (Quantity: " + quantity + ")");
         }
     }
 
@@ -55,5 +62,9 @@ public class ShoppingCart {
     public void clearCart() {
         cartItems.clear();
         System.out.println("Shopping cart cleared.");
+    }
+
+    public HashMap<Product, Integer> getProducts(){
+        return cartItems;
     }
 }
