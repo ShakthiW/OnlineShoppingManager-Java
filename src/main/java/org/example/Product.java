@@ -16,6 +16,8 @@ public abstract class Product {
     }
 
     // ------------- Getters starts -------------------
+    public abstract String getProductCategory();
+
     public String getProductID() {
         return productID;
     }
@@ -53,6 +55,9 @@ public abstract class Product {
     }
     // ------------ Setters ends ------------------
 
+    public void decreaseQuantity(int quantity) {
+        this.quantity -= quantity;
+    }
 
     // to string abstract method
     public abstract String toString();
@@ -60,4 +65,6 @@ public abstract class Product {
     public abstract String toRowString();
 
     public abstract String saveToString();
+
+    public abstract String getInfo();
 }

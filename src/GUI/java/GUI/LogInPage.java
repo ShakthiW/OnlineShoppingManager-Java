@@ -1,3 +1,5 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -67,6 +69,8 @@ public class LogInPage implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420,420);
         frame.setLayout(null);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         frame.setVisible(true);
 
     }
@@ -88,7 +92,6 @@ public class LogInPage implements ActionListener {
                     messageLabel.setText("Login Successful");
 
                     frame.dispose();
-
                     ShoppingPage shoppingPage = new ShoppingPage(userID);
                 } else {
                     messageLabel.setForeground(Color.RED);
@@ -104,6 +107,8 @@ public class LogInPage implements ActionListener {
             frame.dispose();
             SignUpPage signUpPage = new SignUpPage(new IDandPassword());
         }
-
     }
 }
+
+// references:
+// BroCode (2020). Java login system 👨‍💻. [online] Available at: https://youtu.be/Hiv3gwJC5kw?si=VleSoAdGcghHtCxV [Accessed 21st Dec. 2024].

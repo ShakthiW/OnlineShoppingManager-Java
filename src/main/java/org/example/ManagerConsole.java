@@ -1,5 +1,8 @@
 package org.example;
 
+import GUI.Main;
+
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -11,17 +14,17 @@ public class ManagerConsole {
         System.out.println("Please select an option:");
         System.out.println("1) Add new product");
         System.out.println("2) Delete existing product");
-        System.out.println("3) Update existing product");
+        System.out.println("3) Re-stock product");
         System.out.println("4) Print the list of products");
         System.out.println("5) Save to file");
-        System.out.println("6) Open GUI");
+        System.out.println("6) Open customer GUI");
         System.out.println("\n\t0) Quit");
         System.out.println("-------------------------------------------------");
     }
 
     // validate the input for the menu
     private static boolean validate(int choice){
-        return choice <= -1 || choice >= 6;
+        return choice <= -1 || choice >= 7;
     }
 
     // Add products to the system methods
@@ -223,6 +226,7 @@ public class ManagerConsole {
 
                 case 6:
                     // Open GUI
+                    Main main = new Main();
                     break;
 
                 case 0:

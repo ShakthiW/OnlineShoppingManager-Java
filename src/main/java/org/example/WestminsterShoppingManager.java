@@ -139,8 +139,11 @@ public class WestminsterShoppingManager implements ShoppingManager {
         try (Scanner scanner = new Scanner(new File("products.txt"))) {
             while (scanner.hasNextLine()) {
                 String productLine = scanner.nextLine();
-                // Split the line into product attributes
-                String[] productData = productLine.split(",");
+                // Split the line into product attributes, trimming any leading/trailing whitespace
+                String[] productData = productLine.split(",", -1); // Preserve trailing empty strings
+                for (int i = 0; i < productData.length; i++) {
+                    productData[i] = productData[i].trim(); // Trim each element
+                }
 
                 // Create the appropriate Product object based on the product type
                 Product product;

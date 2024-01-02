@@ -6,11 +6,19 @@ import java.util.regex.Pattern;
 public class User {
     protected String userName;
     protected String password;
+    protected int purchaseCount;
 
     // Constructor
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
+        this.purchaseCount = 0;
+    }
+
+    public User(String userName, String password, int purchaseCount) {
+        this.userName = userName;
+        this.password = password;
+        this.purchaseCount = purchaseCount;
     }
 
     // validate password
@@ -31,6 +39,10 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public int getPurchaseCount() {
+        return purchaseCount;
+    }
     // ------------- Getters ends -------------------
 
 
@@ -44,6 +56,10 @@ public class User {
     }
     // ------------- Setters ends -------------------
 
+    // increment the purchase count
+    public void incrementPurchaseCount() {
+        purchaseCount++;
+    }
 
     // validate user credentials on login
     public boolean validateCredentials(String enteredUsername, String enteredPassword) {

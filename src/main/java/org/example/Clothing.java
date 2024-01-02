@@ -56,4 +56,14 @@ public class Clothing extends Product {
     public String saveToString() {
         return "Clothing, " + productID + ", " + productName + ", " + quantity + ", " + price + ", " + color + ", " + size;
     }
+
+    @Override
+    public String getProductCategory() {
+        return "Clothing";
+    }
+
+    @Override
+    public String getInfo() {
+        return size + ", " + color;
+    }
 }

@@ -1,8 +1,12 @@
+package GUI;
+
+import org.example.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.io.IOException;
 
 public class SignUpPage implements ActionListener {
     JFrame frame = new JFrame();
@@ -60,6 +64,8 @@ public class SignUpPage implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420, 550);
         frame.setLayout(null);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 
@@ -85,6 +91,12 @@ public class SignUpPage implements ActionListener {
                 messageLabel.setText("Username already exists");
             } else {
                 iDandPassword.loginInfo.put(userID, password);
+                iDandPassword.users.put(userID, new User(userID, password));
+                try {
+                    iDandPassword.saveUsers();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 messageLabel.setForeground(Color.GREEN);
                 messageLabel.setText("Sign Up Successful");
                 frame.dispose();
