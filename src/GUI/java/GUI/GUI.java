@@ -31,12 +31,12 @@ public class GUI implements ActionListener, ListSelectionListener {
         this.products = products;
         shoppingCart = new ShoppingCart();
 
-        JFrame frame = new JFrame("Westminister Shopping Centre");
+        JFrame frame = new JFrame("Westminster Shopping");
         frame.setSize(600, 550);
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        categoryL = new JLabel("Select Product Category");
+        categoryL = new JLabel("Select Category");
         categoryL.setBounds(80, 20, 160, 25);
         panel.add(categoryL);
 
@@ -65,7 +65,7 @@ public class GUI implements ActionListener, ListSelectionListener {
         detailsL.setBounds(30, 320, 200, 25);
         panel.add(detailsL);
 
-        productL = new JLabel("<product details here>");
+        productL = new JLabel("Select a product to view details");
         productL.setBounds(30, 340, 200, 125);
         panel.add(productL);
 
@@ -73,12 +73,12 @@ public class GUI implements ActionListener, ListSelectionListener {
         listModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listModel.addListSelectionListener(this);
 
-        cartBtn = new JButton("Shopping Cart");
+        cartBtn = new JButton("View Cart");
         cartBtn.setBounds(430, 10, 150, 25);
         cartBtn.addActionListener(this);
         panel.add(cartBtn);
 
-        addCart = new JButton("Add To Shopping Cart");
+        addCart = new JButton("Add To Cart");
         addCart.setBounds(200, 470, 170, 25);
         addCart.addActionListener(this);
         panel.add(addCart);
@@ -87,6 +87,7 @@ public class GUI implements ActionListener, ListSelectionListener {
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 
@@ -149,15 +150,16 @@ public class GUI implements ActionListener, ListSelectionListener {
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equalsIgnoreCase("Shopping Cart")){
+        if(e.getActionCommand().equalsIgnoreCase("View Cart")){
             shoppingCartFrame();
         }
-        else if(e.getActionCommand().equalsIgnoreCase("Add To Shopping Cart")){
+        else if(e.getActionCommand().equalsIgnoreCase("Add To Cart")){
             int idx = table.getSelectedRow();
             if (idx != -1) {
                 Product product = products.get(idx);

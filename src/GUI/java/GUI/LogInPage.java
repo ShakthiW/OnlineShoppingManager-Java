@@ -69,6 +69,8 @@ public class LogInPage implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420,420);
         frame.setLayout(null);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         frame.setVisible(true);
 
     }

@@ -1,6 +1,6 @@
 package org.example;
 
-import GUI.GUI;
+import GUI.Main;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -225,19 +225,8 @@ public class ManagerConsole {
                     break;
 
                 case 6:
-                    // Open GUI.GUI
-                    ArrayList<Product> products = new ArrayList<>();
-                    products.add(new Electronics("E100", "Mobile Phone", 12, 500,
-                            "Samsung", 12));
-                    products.add(new Electronics("E101", "Laptop", 2, 1200,
-                            "Apple", 6));
-                    products.add(new Electronics("E102", "Charger", 45, 100,
-                            "Huawei", 12));
-                    products.add(new Electronics("C100", "Shirt", 23, 50,
-                            "Moose", 12));
-                    products.add(new Electronics("C101", "Frocks", 55, 150,
-                            "Memosa", 12));
-                    GUI gui = new GUI(products);
+                    // Open GUI
+                    Main main = new Main();
                     break;
 
                 case 0:
