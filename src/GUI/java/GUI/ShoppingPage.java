@@ -3,10 +3,7 @@ package GUI;
 import org.example.Clothing;
 import org.example.Electronics;
 import org.example.Product;
-import org.example.WestminsterShoppingManager;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

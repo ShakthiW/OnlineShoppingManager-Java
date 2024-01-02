@@ -92,7 +92,6 @@ public class LogInPage implements ActionListener {
                     messageLabel.setText("Login Successful");
 
                     frame.dispose();
-
                     ShoppingPage shoppingPage = new ShoppingPage(userID);
                 } else {
                     messageLabel.setForeground(Color.RED);
@@ -108,6 +107,5 @@ public class LogInPage implements ActionListener {
             frame.dispose();
             SignUpPage signUpPage = new SignUpPage(new IDandPassword());
         }
-
     }
 }
