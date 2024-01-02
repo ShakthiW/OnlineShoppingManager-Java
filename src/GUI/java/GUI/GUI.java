@@ -46,15 +46,15 @@ public class GUI implements ActionListener, ListSelectionListener {
         comboBox.setBounds(240, 20, 160, 25);
         panel.add(comboBox);
 
-        model = new DefaultTableModel(new String[]{"Product ID", "Name", "Category", "Price(£)"}, 0);
+        model = new DefaultTableModel(new String[]{"Product ID", "Name", "Category", "Price(Rs.)", "Info"}, 0);
         for (Product product : products) {
-            Object[] productArray = {product.getProductID(), product.getProductName(), product.getProductCategory(), product.getPrice()};
+            Object[] productArray = {product.getProductID(), product.getProductName(), product.getProductCategory(), product.getPrice(), product.getInfo()};
             model.addRow(productArray);
         }
 
         table = new JTable(model);
         TableColumnModel columnModel = table.getColumnModel();
-        columnModel.getColumn(3).setPreferredWidth(150);
+        columnModel.getColumn(4).setPreferredWidth(150);
         JScrollPane sp = new JScrollPane(table);
         sp.setBounds(25, 70, 550, 250);
         panel.add(sp);
@@ -107,24 +107,24 @@ public class GUI implements ActionListener, ListSelectionListener {
         HashMap<Product, Integer> map = shoppingCart.getProducts();
         model.setRowCount(0);
         double total = 0;
-        boolean three = false;
-        int counterE = 0;
-        int counterC = 0;
+        boolean threeItems = false;
+        int electronicsCount = 0;
+        int clothingCount = 0;
         double discount = 0;
         for (Map.Entry<Product, Integer> entry : map.entrySet()) {
             Product product = entry.getKey();
             int quantity = entry.getValue();
-            Object[] arr = {product.getProductID() + ", " + product.getProductName() + ", " + quantity, (quantity * product.getPrice())};
+            Object[] arr = {product.getProductID() + ", " + product.getProductName() + ", " + product.getInfo(), quantity, (quantity * product.getPrice())};
             model.addRow(arr);
             total += (quantity * product.getPrice());
             if(product.getProductCategory().equalsIgnoreCase("Electronics")){
-                counterE += entry.getValue();
+                electronicsCount += entry.getValue();
             }
             else if(product.getProductCategory().equalsIgnoreCase("Clothing")){
-                counterC += entry.getValue();
+                clothingCount += entry.getValue();
             }
-            if(counterE >= 3 || counterC >= 3){
-                three = true;
+            if(electronicsCount >= 3 || clothingCount >= 3){
+                threeItems = true;
             }
         }
         JLabel totalL = new JLabel("<html>Total&nbsp;&nbsp;&nbsp;&nbsp;"
@@ -132,7 +132,7 @@ public class GUI implements ActionListener, ListSelectionListener {
         totalL.setBounds(400, 250, 200, 30);
         panel.add(totalL);
 
-        if (three) {
+        if (threeItems) {
             discount = (total * 0.20);
             JLabel discountLbl = new JLabel(
                     "<html>Three items in same Category Discount (20%)&nbsp;&nbsp;&nbsp;&nbsp;-"

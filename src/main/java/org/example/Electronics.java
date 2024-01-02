@@ -62,4 +62,9 @@ public class Electronics extends Product {
     public String getProductCategory() {
         return "Electronics";
     }
+
+    @Override
+    public String getInfo() {
+        return brand + ", " + warrantyPeriod;
+    }
 }

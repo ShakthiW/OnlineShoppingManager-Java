@@ -109,3 +109,6 @@ public class LogInPage implements ActionListener {
         }
     }
 }
+
+// references:
+// BroCode (2020). Java login system 👨‍💻. [online] Available at: https://youtu.be/Hiv3gwJC5kw?si=VleSoAdGcghHtCxV [Accessed 21st Dec. 2024].

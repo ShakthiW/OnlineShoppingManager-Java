@@ -65,4 +65,6 @@ public abstract class Product {
     public abstract String toRowString();
 
     public abstract String saveToString();
+
+    public abstract String getInfo();
 }

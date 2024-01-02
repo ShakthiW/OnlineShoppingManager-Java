@@ -61,4 +61,9 @@ public class Clothing extends Product {
     public String getProductCategory() {
         return "Clothing";
     }
+
+    @Override
+    public String getInfo() {
+        return size + ", " + color;
+    }
 }
