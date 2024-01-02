@@ -16,14 +16,19 @@ public class SignUpPage implements ActionListener {
     JTextField userIDField = new JTextField();
     JPasswordField userPasswordField = new JPasswordField();
     JPasswordField reEnterPasswordField = new JPasswordField();
+    JLabel signUpFrom = new JLabel("Sign Up", SwingConstants.CENTER);
     JLabel userIDLabel  = new JLabel("Username");
     JLabel userPasswordLabel = new JLabel("Password :");
     JLabel reEnterPasswordLabel = new JLabel("Repeat Password :");
     JLabel messageLabel = new JLabel();
+    JLabel returningUser = new JLabel("Already a user? CLick on LogIn: ");
     IDandPassword iDandPassword;
 
     SignUpPage(IDandPassword iDandPasswordOriginal) {
         this.iDandPassword = iDandPasswordOriginal;
+
+        signUpFrom.setBounds(120, 40, 200, 35);
+        signUpFrom.setFont(new Font("POPPINS", Font.BOLD, 30));
 
         userIDLabel.setBounds(50, 100, 75, 25);
         userPasswordLabel.setBounds(50, 150, 75, 25);
@@ -32,21 +37,25 @@ public class SignUpPage implements ActionListener {
         messageLabel.setBounds(125, 250, 250, 35);
         messageLabel.setFont(new Font("POPPINS", Font.ITALIC, 25));
 
-        userIDField.setBounds(125, 100, 200, 25);
-        userPasswordField.setBounds(125, 150, 200, 25);
-        reEnterPasswordField.setBounds(125, 200, 200, 25);
+        userIDField.setBounds(165, 100, 200, 25);
+        userPasswordField.setBounds(165, 150, 200, 25);
+        reEnterPasswordField.setBounds(165, 200, 200, 25);
 
-        signUpButton.setBounds(125, 300, 100, 25);
+        signUpButton.setBounds(165, 300, 100, 25);
         signUpButton.setFocusable(false);
         signUpButton.addActionListener(this);
 
-        resetButton.setBounds(225, 300, 100, 25);
+        resetButton.setBounds(265, 300, 100, 25);
         resetButton.setFocusable(false);
         resetButton.addActionListener(this);
 
-        logInButton.setBounds(125, 350, 100, 25);
+        returningUser.setBounds(50, 350, 200, 25);
+
+        logInButton.setBounds(265, 350, 100, 25);
         logInButton.setFocusable(false);
         logInButton.addActionListener(this);
+
+        frame.add(signUpFrom);
 
         frame.add(userIDLabel);
         frame.add(userPasswordLabel);
@@ -57,12 +66,14 @@ public class SignUpPage implements ActionListener {
         frame.add(userPasswordField);
         frame.add(reEnterPasswordField);
 
+        frame.add(returningUser);
+
         frame.add(signUpButton);
         frame.add(resetButton);
         frame.add(logInButton);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(420, 550);
+        frame.setSize(450, 550);
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
