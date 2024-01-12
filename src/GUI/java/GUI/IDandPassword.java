@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class IDandPassword {
-    HashMap<String, String> loginInfo = new HashMap<String, String>();
+    HashMap<String, String> loginInfo = new HashMap<>();
     HashMap<String, User> users = new HashMap<>();
 
     IDandPassword() {
@@ -24,14 +24,7 @@ public class IDandPassword {
         }
     }
 
-    public void saveUsers() throws IOException {
-        try (FileWriter writer = new FileWriter("users.txt")) {
-            for (Map.Entry<String, User> entry : users.entrySet()) {
-                User user = entry.getValue();
-                writer.write(user.getUserName() + ":" + user.getPassword() + ":" + user.getPurchaseCount() + "\n");
-            }
-        }
-    }
+
 
     public void loadUsers() {
         users.clear(); // Clear existing data
