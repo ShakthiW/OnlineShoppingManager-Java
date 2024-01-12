@@ -19,11 +19,11 @@ public class GUI implements ActionListener, ListSelectionListener {
 
     private ArrayList<Product> products;
     private ShoppingCart shoppingCart;
-    private JLabel categoryL, detailsL, productL;
-    private JComboBox comboBox;
+    private JLabel selectProductCategoryLabel, productDetailsLabel, selectProductLabel;
+    private JComboBox selectionBox;
     private JTable table;
     private JButton viewCartBtn, addToCart, checkOut;
-    private DefaultTableModel model;
+    private DefaultTableModel tableModel;
 
     public GUI(ArrayList<Product> products, User currentUser) {
         this.products = products;
@@ -35,37 +35,32 @@ public class GUI implements ActionListener, ListSelectionListener {
         JPanel panel = new JPanel();
         panel.setLayout(null);
 
-        categoryL = new JLabel("Select Product Category");
-        categoryL.setBounds(80, 20, 160, 25);
-        panel.add(categoryL);
+        selectProductCategoryLabel = new JLabel("Select Product Category");
+        selectProductCategoryLabel.setBounds(80, 20, 160, 25);
 
-        comboBox = new JComboBox(new String[]{"All", "Electronics", "Clothing"});
-        comboBox.setSelectedItem("All");
-        comboBox.addActionListener(this);
-        comboBox.setBounds(240, 20, 160, 25);
-        panel.add(comboBox);
+        selectionBox = new JComboBox(new String[]{"All", "Electronics", "Clothing"});
+        selectionBox.setSelectedItem("All");
+        selectionBox.addActionListener(this);
+        selectionBox.setBounds(240, 20, 160, 25);
 
-        model = new DefaultTableModel(new String[]{"Product ID", "Name", "Category", "Price(Rs.)", "Info"}, 0);
+        tableModel = new DefaultTableModel(new String[]{"Product ID", "Name", "Category", "Price(Rs.)", "Info"}, 0);
         for (Product product : products) {
             Object[] productArray = {product.getProductID(), product.getProductName(), product.getProductCategory(), product.getPrice(), product.getInfo()};
-            model.addRow(productArray);
+            tableModel.addRow(productArray);
         }
 
-        table = new JTable(model);
+        table = new JTable(tableModel);
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(4).setPreferredWidth(150);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(25, 70, 550, 250);
-        panel.add(scrollPane);
 
-        detailsL = new JLabel("Selected Product - Details");
-        detailsL.setFont(new Font("POPPINS", Font.BOLD, 12));
-        detailsL.setBounds(30, 320, 200, 25);
-        panel.add(detailsL);
+        productDetailsLabel = new JLabel("Selected Product - Details");
+        productDetailsLabel.setFont(new Font("POPPINS", Font.BOLD, 12));
+        productDetailsLabel.setBounds(30, 320, 200, 25);
 
-        productL = new JLabel("Select a product to view details");
-        productL.setBounds(30, 340, 200, 125);
-        panel.add(productL);
+        selectProductLabel = new JLabel("Select a product to view details");
+        selectProductLabel.setBounds(30, 340, 200, 125);
 
         ListSelectionModel listModel = table.getSelectionModel();
         listModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -74,11 +69,17 @@ public class GUI implements ActionListener, ListSelectionListener {
         viewCartBtn = new JButton("Shopping Cart");
         viewCartBtn.setBounds(430, 10, 150, 25);
         viewCartBtn.addActionListener(this);
-        panel.add(viewCartBtn);
 
         addToCart = new JButton("Add To Shopping Cart");
         addToCart.setBounds(200, 470, 170, 25);
         addToCart.addActionListener(this);
+
+        panel.add(selectProductCategoryLabel);
+        panel.add(selectionBox);
+        panel.add(scrollPane);
+        panel.add(productDetailsLabel);
+        panel.add(selectProductLabel);
+        panel.add(viewCartBtn);
         panel.add(addToCart);
 
         frame.add(panel);
@@ -139,14 +140,14 @@ public class GUI implements ActionListener, ListSelectionListener {
         if (threeItems) {
             discount = (total * 0.20);
             JLabel discountLbl20 = new JLabel("Three items in the same Category Discount (20%): -Rs. " + String.format("%.2f", discount));
-            discountLbl20.setBounds(150, 280, 400, 25);
+            discountLbl20.setBounds(120, 280, 400, 25);
             panel.add(discountLbl20);
         }
 
         if (firstPurchase) {
             discount = (total * 0.10);
-            JLabel discountLbl10 = new JLabel("First Purchase Discount (10%): -Rs. " + String.format("%.2f", discount));
-            discountLbl10.setBounds(150, 320, 400, 25);
+            JLabel discountLbl10 = new JLabel("First Purchase Discount (10%) : -Rs. " + String.format("%.2f", discount));
+            discountLbl10.setBounds(250, 320, 400, 25);
             panel.add(discountLbl10);
         }
 
@@ -181,9 +182,9 @@ public class GUI implements ActionListener, ListSelectionListener {
 
         //else if(e.getActionCommand().equalsIgnoreCase("Add To Cart")){
         else if(e.getSource() == addToCart){
-            int idx = table.getSelectedRow();
-            if (idx != -1) {
-                Product product = products.get(idx);
+            int index = table.getSelectedRow();
+            if (index != -1) {
+                Product product = products.get(index);
 
                 // Show input dialog to get quantity
                 String input = JOptionPane.showInputDialog("Please Enter Quantity: ");
@@ -193,8 +194,8 @@ public class GUI implements ActionListener, ListSelectionListener {
                     try {
                         int quantity = Integer.parseInt(input);
 
-                        if(products.get(idx).getQuantity() > 0 && quantity <= products.get(idx).getQuantity()){
-                            products.get(idx).decreaseQuantity(quantity);
+                        if(products.get(index).getQuantity() > 0 && quantity <= products.get(index).getQuantity()){
+                            products.get(index).decreaseQuantity(quantity);
                             shoppingCart.addProduct(product, quantity);
                             JOptionPane.showMessageDialog(null, product.getProductName()+" Added To Cart!");
                         }
@@ -218,17 +219,17 @@ public class GUI implements ActionListener, ListSelectionListener {
 
 
         if(e.getActionCommand().equalsIgnoreCase("comboBoxChanged")){
-            String category = (String) comboBox.getSelectedItem();
-            model.setRowCount(0);
+            String category = (String) selectionBox.getSelectedItem();
+            tableModel.setRowCount(0);
 
             for (Product product : products) {
                 if(category.equalsIgnoreCase("All")){
                     Object[] arr = {product.getProductID(), product.getProductName(), product.getProductCategory(), product.getPrice()};
-                    model.addRow(arr);
+                    tableModel.addRow(arr);
                 }
                 else if(product.getProductCategory().equalsIgnoreCase(category)){
                     Object[] arr = {product.getProductID(), product.getProductName(), product.getProductCategory(), product.getPrice()};
-                    model.addRow(arr);
+                    tableModel.addRow(arr);
                 }
             }
         }
@@ -248,13 +249,14 @@ public class GUI implements ActionListener, ListSelectionListener {
         if (selectedRow != -1) {
             Product selectedProduct = products.get(selectedRow);
             String productDetails = generateProductDetails(selectedProduct);
-            productL.setText(productDetails);
+            selectProductLabel.setText(productDetails);
         }
     }
 
 
     // JLabel does not interpret the '\n' character... so used HTML
     // references - https://stackoverflow.com/questions/9071389/setting-jtextpane-to-content-type-html-and-using-string-builders
+
     private String generateProductDetails(Product product) {
         String category = product.getProductCategory();
         StringBuilder stringBuilder = new StringBuilder(
@@ -280,4 +282,3 @@ public class GUI implements ActionListener, ListSelectionListener {
         return stringBuilder.toString();
     }
 }
-

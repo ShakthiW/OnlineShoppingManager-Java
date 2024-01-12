@@ -24,7 +24,14 @@ public class IDandPassword {
         }
     }
 
-
+    public void saveUsers() throws IOException {
+        try (FileWriter writer = new FileWriter("users.txt")) {
+            for (Map.Entry<String, User> entry : users.entrySet()) {
+                User user = entry.getValue();
+                writer.write(user.getUserName() + ":" + user.getPassword() + ":" + user.getPurchaseCount() + "\n");
+            }
+        }
+    }
 
     public void loadUsers() {
         users.clear(); // Clear existing data
