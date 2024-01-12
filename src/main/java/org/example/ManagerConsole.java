@@ -2,6 +2,7 @@ package org.example;
 
 import GUI.Main;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -212,10 +213,28 @@ public class ManagerConsole {
 
                 case 4:
                     // Print a list of products
-                    System.out.print("Which products you want to print? (Clothing ['C'], Electronics ['E']): ");
-                    String productTypeToPrint = input.next();
-                    shoppingManager.printAllProducts(productTypeToPrint);
+                    // Print all products in the system alphabetically by productId
+                    ArrayList<Product> listOfProducts = (ArrayList<Product>) shoppingManager.getAllProducts();
 
+                    // Bubble sort to alphabetically order the products by productId
+                    for (int i = 0; i < listOfProducts.size() - 1; i++) {
+                        for (int j = 0; j < listOfProducts.size() - i - 1; j++) {
+                            String productId1 = listOfProducts.get(j).getProductID();
+                            String productId2 = listOfProducts.get(j + 1).getProductID();
+                            if (productId1.compareToIgnoreCase(productId2) > 0) {
+                                // Swap products if they are in the wrong order
+                                Product temp = listOfProducts.get(j);
+                                listOfProducts.set(j, listOfProducts.get(j + 1));
+                                listOfProducts.set(j + 1, temp);
+                            }
+                        }
+                    }
+
+                    System.out.println("Number of products: " + listOfProducts.size());  // Debug print
+
+                    for (Product product : listOfProducts) {
+                        System.out.println(product.saveToString());
+                    }
                     break;
 
                 case 5:
