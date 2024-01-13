@@ -2,10 +2,7 @@ package org.example;
 
 import GUI.Main;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class ManagerConsole {
     // Display Menu
@@ -49,7 +46,12 @@ public class ManagerConsole {
     // ---------------------- get details ------------------------
     public static String getProductDetails(Scanner input, String message) {
         System.out.print("\n" + message + " ");
-        return input.next();
+        try {
+            return input.next();
+        } catch (NoSuchElementException e) {
+            // Handle the exception, return an empty string, or a sentinel value
+            return "";
+        }
     }
 
     public static int getProductDetailsInt(Scanner input, String message) {
@@ -67,6 +69,12 @@ public class ManagerConsole {
     public static String validateProductID(Scanner input, String productType, List<Product> productList) {
         while (true) {
             String productID = getProductDetails(input, "Please Enter The ProductID:");
+
+            if (productID.isEmpty()) {
+                System.out.println("Empty Product ID. Please enter a valid ID.");
+                // Continue the loop if an empty string is encountered
+                continue;
+            }
 
             // Validate format
             if (!productID.matches("[EC]{1}\\d{3}")) {
@@ -102,6 +110,7 @@ public class ManagerConsole {
 
 
 
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         WestminsterShoppingManager shoppingManager = new WestminsterShoppingManager();
@@ -133,16 +142,17 @@ public class ManagerConsole {
         while (!quit) {
             System.out.print("\nEnter Your Choice Here: ");
             int choice;
+
             try {
                 choice = input.nextInt();
                 input.nextLine(); // consume the leftover newline character
 
                 if (validate(choice)) {
-                    System.out.println("Please Enter a valid choice between 0 - 4");
+                    System.out.println("Please Enter a valid choice between 0 - 6");
                     continue;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Please Enter Number...");
+                System.out.println("Please Enter a Number...");
                 input.nextLine(); // consume the leftover newline character
                 continue;
             }

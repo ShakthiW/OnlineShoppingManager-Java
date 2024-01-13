@@ -7,7 +7,17 @@ public class Clothing extends Product {
     // Constructor
     public Clothing(String productID, String productName, int quantity, double price, String size, String color) {
         super(productID, productName, quantity, price);
+
+        // Validate size
+        if (size == null || size.trim().isEmpty()) {
+            throw new IllegalArgumentException("Size cannot be empty");
+        }
         this.size = size;
+
+        // Validate color
+        if (color == null || color.trim().isEmpty()) {
+            throw new IllegalArgumentException("Color cannot be null or empty");
+        }
         this.color = color;
     }
 
