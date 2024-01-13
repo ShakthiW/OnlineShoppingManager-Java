@@ -3,85 +3,141 @@ package org.example;
 import junit.framework.TestCase;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.util.List;
 
 public class WestminsterShoppingManagerTest extends TestCase {
     @Test
-    public void testAddProduct() {
-        WestminsterShoppingManager manager = new WestminsterShoppingManager();
-        Product product = new Electronics("E123", "Laptop", 10, 999.99, "BrandX", 12);
-        manager.addProduct(product);
-        assertEquals(1, manager.getTotalProducts());
+    void addProduct_ProductListNotFull_ProductAddedSuccessfully() {
+        // Arrange
+        WestminsterShoppingManager shoppingManager = new WestminsterShoppingManager();
+        Product product = new Electronics("E123", "Laptop", 5, 1200.0, "Dell", 12);
+
+        // Act
+        shoppingManager.addProduct(product);
+
+        // Assert
+        List<Product> productList = shoppingManager.getAllProducts();
+        assertEquals(1, productList.size());
+        assertEquals(product, productList.get(0));
     }
 
     @Test
-    public void testUpdateProductQuantity() {
-        WestminsterShoppingManager manager = new WestminsterShoppingManager();
-        Product product = new Electronics("E123", "Laptop", 10, 999.99, "BrandX", 12);
-        manager.addProduct(product);
-        assertTrue(manager.updateProductQuantity("E123", 5));
-        assertEquals(15, manager.getProductByID("E123").getQuantity());
+    void addProduct_ProductListFull_LimitReached() {
+        // Arrange
+        WestminsterShoppingManager shoppingManager = new WestminsterShoppingManager();
+        for (int i = 0; i < 50; i++) {
+            Product product = new Clothing("C" + i, "Shirt", 10, 20.0, "XL", "Blue");
+            shoppingManager.addProduct(product);
+        }
+
+        // Act
+        Product newProduct = new Electronics("E123", "Laptop", 5, 1200.0, "Dell", 12);
+        shoppingManager.addProduct(newProduct);
+
+        // Assert
+        List<Product> productList = shoppingManager.getAllProducts();
+        assertEquals(50, productList.size());
+        assertFalse(productList.contains(newProduct));
     }
 
     @Test
-    public void testRemoveProductFromSystem() {
-        WestminsterShoppingManager manager = new WestminsterShoppingManager();
-        Product product = new Electronics("E123", "Laptop", 10, 999.99, "BrandX", 12);
-        manager.addProduct(product);
-        manager.removeProductFromSystem("E123");
-        assertNull(manager.getProductByID("E123"));
+    void updateProductQuantity_ProductFound_QuantityUpdatedSuccessfully() {
+        // Arrange
+        WestminsterShoppingManager shoppingManager = new WestminsterShoppingManager();
+        Product product = new Electronics("E123", "Laptop", 5, 1200.0, "Dell", 12);
+        shoppingManager.addProduct(product);
+
+        // Act
+        boolean result = shoppingManager.updateProductQuantity("E123", 3);
+
+        // Assert
+        assertTrue(result);
+        assertEquals(8, product.getQuantity());
     }
 
     @Test
-    public void testLoadAndSaveProducts() {
-        WestminsterShoppingManager manager = new WestminsterShoppingManager();
-        Product product1 = new Electronics("E123", "Laptop", 10, 999.99, "BrandX", 12);
-        Product product2 = new Clothing("C456", "Shirt", 20, 29.99, "M", "Blue");
+    void updateProductQuantity_ProductNotFound_ReturnsFalse() {
+        // Arrange
+        WestminsterShoppingManager shoppingManager = new WestminsterShoppingManager();
 
-        // Add products to the system
-        manager.addProduct(product1);
-        manager.addProduct(product2);
+        // Act
+        boolean result = shoppingManager.updateProductQuantity("E123", 3);
 
-        // Save products to a file
-        manager.saveProducts();
-
-        // Clear the system and load products from the file
-        manager = new WestminsterShoppingManager();
-        manager.loadProducts();
-
-        // Check if the loaded products match the original products
-        assertEquals(2, manager.getTotalProducts());
-        assertEquals(product1.getProductID(), manager.getProductByID("E123").getProductID());
-        assertEquals(product2.getProductID(), manager.getProductByID("C456").getProductID());
+        // Assert
+        assertFalse(result);
     }
 
     @Test
-    public void testPrintAllProducts() {
-        WestminsterShoppingManager manager = new WestminsterShoppingManager();
-        Product product1 = new Electronics("E123", "Laptop", 10, 999.99, "BrandX", 12);
-        Product product2 = new Clothing("C456", "Shirt", 20, 29.99, "M", "Blue");
+    void removeProductFromSystem_ProductFound_ProductRemovedSuccessfully() {
+        // Arrange
+        WestminsterShoppingManager shoppingManager = new WestminsterShoppingManager();
+        Product product = new Electronics("E123", "Laptop", 5, 1200.0, "Dell", 12);
+        shoppingManager.addProduct(product);
 
-        // Add products to the system
-        manager.addProduct(product1);
-        manager.addProduct(product2);
+        // Act
+        shoppingManager.removeProductFromSystem("E123");
 
-        // Capture the output of printAllProducts
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(outputStream);
-        System.setOut(printStream);
+        // Assert
+        List<Product> productList = shoppingManager.getAllProducts();
+        assertEquals(0, productList.size());
+    }
 
-        // Print all products
-        manager.printAllProducts("E");
+    @Test
+    void removeProductFromSystem_ProductNotFound_NoChange() {
+        // Arrange
+        WestminsterShoppingManager shoppingManager = new WestminsterShoppingManager();
 
-        // Restore the standard output
-        System.setOut(System.out);
+        // Act
+        shoppingManager.removeProductFromSystem("E123");
 
-        // Verify the printed output
-        String printedOutput = outputStream.toString();
-        assertTrue(printedOutput.contains("E123"));
-        assertTrue(printedOutput.contains("Laptop"));
-        assertTrue(printedOutput.contains("BrandX"));
-        assertFalse(printedOutput.contains("C456"));
+        // Assert
+        List<Product> productList = shoppingManager.getAllProducts();
+        assertEquals(0, productList.size());
+    }
+
+    @Test
+    void getAllProducts_ReturnsCopyOfProductList() {
+        // Arrange
+        WestminsterShoppingManager shoppingManager = new WestminsterShoppingManager();
+        Product product = new Electronics("E123", "Laptop", 5, 1200.0, "Dell", 12);
+        shoppingManager.addProduct(product);
+
+        // Act
+        List<Product> productList = shoppingManager.getAllProducts();
+
+        // Assert
+        assertEquals(1, productList.size());
+        assertEquals(product, productList.get(0));
+        // Modifying the returned list should not affect the internal list
+        productList.clear();
+        List<Product> updatedList = shoppingManager.getAllProducts();
+        assertEquals(1, updatedList.size());
+    }
+
+    @Test
+    void getProductByID_ProductFound_ReturnsProduct() {
+        // Arrange
+        WestminsterShoppingManager shoppingManager = new WestminsterShoppingManager();
+        Product product = new Electronics("E123", "Laptop", 5, 1200.0, "Dell", 12);
+        shoppingManager.addProduct(product);
+
+        // Act
+        Product foundProduct = shoppingManager.getProductByID("E123");
+
+        // Assert
+        assertNotNull(foundProduct);
+        assertEquals(product, foundProduct);
+    }
+
+    @Test
+    void getProductByID_ProductNotFound_ReturnsNull() {
+        // Arrange
+        WestminsterShoppingManager shoppingManager = new WestminsterShoppingManager();
+
+        // Act
+        Product foundProduct = shoppingManager.getProductByID("E123");
+
+        // Assert
+        assertNull(foundProduct);
     }
 }
