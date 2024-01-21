@@ -22,7 +22,7 @@ public class User {
     }
 
     // validate password
-    private static boolean validatePassword(String password) {
+    static boolean validatePassword(String password) {
         // Using regular expressions to check for one capital letter and one numeric value
         String regex = "^(?=.*[A-Z])(?=.*\\d).+$";
         Pattern pattern = Pattern.compile(regex);
@@ -52,7 +52,11 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if (validatePassword(password)) {
+            this.password = password;
+        } else {
+            throw new IllegalArgumentException("Invalid password format");
+        }
     }
     // ------------- Setters ends -------------------
 

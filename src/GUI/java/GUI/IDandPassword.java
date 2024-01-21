@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class IDandPassword {
-    HashMap<String, String> loginInfo = new HashMap<String, String>();
+    HashMap<String, String> loginInfo = new HashMap<>();
     HashMap<String, User> users = new HashMap<>();
 
     IDandPassword() {

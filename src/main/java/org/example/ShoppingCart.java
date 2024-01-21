@@ -16,18 +16,18 @@ public class ShoppingCart {
 
     // Adds a product to the shopping cart
     public void addProduct(Product product, int quantity) {
-        if (cartItems.containsKey(product)) {
-            cartItems.put(product, cartItems.get(product) + quantity);
+        if (quantity > 0) {
+            cartItems.put(product, cartItems.getOrDefault(product, 0) + quantity);
+            System.out.println("Product added to the shopping cart.");
         } else {
-            cartItems.put(product, quantity);
+            System.out.println("Quantity must be greater than 0.");
         }
-        System.out.println("Product added to the shopping cart.");
     }
 
     // Removes a product from the shopping cart based on the provided product ID
     // Prints a success message if the product is found and removed, or a message if the product is not found
     public void removeProduct(String productId) {
-        Iterator<Product> iterator = cartItems.keySet().iterator();  // Iterate through the product keys
+        Iterator<Product> iterator = cartItems.keySet().iterator();
         while (iterator.hasNext()) {
             Product product = iterator.next();
             if (product.getProductID().equals(productId)) {
@@ -44,7 +44,7 @@ public class ShoppingCart {
         double totalCost = 0.0;
         for (Product product : cartItems.keySet()) {
             int quantity = cartItems.get(product);
-            totalCost += product.getPrice() * quantity;  // Calculate total cost based on price and quantity
+            totalCost += product.getPrice() * quantity;
         }
         return totalCost;
     }
@@ -52,7 +52,7 @@ public class ShoppingCart {
     // Print details of all products in the shopping cart
     public void printCartItems() {
         System.out.println("Shopping Cart Items:");
-        for (Product product : cartItems.keySet()) {  // Iterate through the product keys
+        for (Product product : cartItems.keySet()) {
             int quantity = cartItems.get(product);
             System.out.println(product.toString() + " (Quantity: " + quantity + ")");
         }
@@ -64,7 +64,7 @@ public class ShoppingCart {
         System.out.println("Shopping cart cleared.");
     }
 
-    public HashMap<Product, Integer> getProducts(){
+    public HashMap<Product, Integer> getProducts() {
         return cartItems;
     }
 }

@@ -3,6 +3,7 @@ package GUI;
 import org.example.Clothing;
 import org.example.Electronics;
 import org.example.Product;
+import org.example.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.Scanner;
 
 public class ShoppingPage {
     ArrayList<Product> products;
+    private User currentUser;
 
     public void loadProducts() {
         try (Scanner scanner = new Scanner(new File("products.txt"))) {
@@ -50,10 +52,13 @@ public class ShoppingPage {
         }
     }
 
-    ShoppingPage(String userID) {
+
+
+    ShoppingPage(User user) {
+        currentUser = user;  // Store the current user
         products = new ArrayList<>();
         loadProducts();
 
-        new GUI(products);
+        new GUI(products, currentUser);
     }
 }

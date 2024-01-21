@@ -7,7 +7,17 @@ public class Electronics extends Product {
     // constructor
     public Electronics(String productID, String productName, int quantity, double price, String brand, int warrantyPeriod) {
         super(productID, productName, quantity, price);
+
+        // Validate brand
+        if (brand == null || brand.trim().isEmpty()) {
+            throw new IllegalArgumentException("Brand cannot be empty");
+        }
         this.brand = brand;
+
+        // Validate warranty period
+        if (warrantyPeriod < 0) {
+            throw new IllegalArgumentException("Warranty period cannot be a negative");
+        }
         this.warrantyPeriod = warrantyPeriod;
     }
 

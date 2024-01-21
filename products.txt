@@ -1,17 +1,5 @@
-Electronics, E001, Car, 12, 1200.0, BMW, 12
-Electronics, E011, Laptop, 25, 599.99, HP, 12
-Electronics, E012, Smartphone, 30, 899.99, Apple, 24
-Electronics, E013, TV, 15, 499.99, LG, 36
-Electronics, E014, Headphones, 50, 129.99, Sony, 12
-Electronics, E015, Camera, 10, 399.99, Canon, 12
-Clothing, C010, Shirt, 40, 29.99, Blue, M
-Clothing, C011, Jeans, 35, 49.99, Black, L
-Clothing, C012, Dress, 20, 59.99, Red, S
-Clothing, C013, Jacket, 15, 79.99, Green, XL
-Clothing, C014, Shoes, 30, 69.99, White, 7
-Clothing, C015, Socks, 50, 9.99, Black, L
-Electronics, E016, Printer, 10, 199.99, Epson, 24
-Electronics, E017, Tablet, 20, 399.99, Samsung, 12
-Electronics, E018, Smartwatch, 15, 249.99, Apple, 12
-Electronics, E019, Gaming Console, 5, 499.99, PlayStation, 12
-Electronics, E020, Wireless Speaker, 30, 149.99, JBL, 12
+Electronics, E001, Iphone, 12, 1200.0, Apple, 12
+Clothing, C001, Shirt, 14, 100.0, Blue, M
+Electronics, E003, Laptop, 5, 2000.0, Dell, 24
+Electronics, E004, Kettle, 8, 1000.0, ABC, 6
+Clothing, C005, Short, 14, 200.0, White, L

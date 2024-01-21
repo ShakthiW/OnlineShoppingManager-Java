@@ -11,8 +11,8 @@ public abstract class Product {
     public Product(String productID, String productName, int quantity, double price) {
         this.productID = productID;
         this.productName = productName;
-        this.quantity = quantity;
-        this.price = price;
+        setQuantity(quantity); // Validate quantity during construction
+        setPrice(price);
     }
 
     // ------------- Getters starts -------------------
@@ -47,16 +47,28 @@ public abstract class Product {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        if (quantity >= 0) {
+            this.quantity = quantity;
+        } else {
+            throw new IllegalArgumentException("Quantity cannot be negative");
+        }
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        if (price >= 0) {
+            this.price = price;
+        } else {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
     }
     // ------------ Setters ends ------------------
 
     public void decreaseQuantity(int quantity) {
-        this.quantity -= quantity;
+        if (quantity >= 0 && quantity <= this.quantity) {
+            this.quantity -= quantity;
+        } else {
+            throw new IllegalArgumentException("Invalid quantity to decrease");
+        }
     }
 
     // to string abstract method

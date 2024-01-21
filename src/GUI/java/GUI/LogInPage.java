@@ -1,5 +1,7 @@
 package GUI;
 
+import org.example.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -91,8 +93,9 @@ public class LogInPage implements ActionListener {
                     messageLabel.setForeground(Color.GREEN);
                     messageLabel.setText("Login Successful");
 
+                    User user = new User(userID, password);
                     frame.dispose();
-                    ShoppingPage shoppingPage = new ShoppingPage(userID);
+                    ShoppingPage shoppingPage = new ShoppingPage(user);
                 } else {
                     messageLabel.setForeground(Color.RED);
                     messageLabel.setText("Wrong Password");
