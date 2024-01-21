@@ -1,3 +1,1 @@
-buddhima:buddy:0
-shakthi:shakthi:0
-bro:code:0
+Shakthi2:123:0

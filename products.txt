@@ -1,2 +1,5 @@
-Electronics, E123, Laptop, 10, 999.99, BrandX, 12
-Clothing, C456, Shirt, 20, 29.99, Blue, M
+Electronics, E001, Iphone, 12, 1200.0, Apple, 12
+Clothing, C001, Shirt, 14, 100.0, Blue, M
+Electronics, E003, Laptop, 5, 2000.0, Dell, 24
+Electronics, E004, Kettle, 8, 1000.0, ABC, 6
+Clothing, C005, Short, 14, 200.0, White, L
